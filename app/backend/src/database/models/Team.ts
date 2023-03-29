@@ -8,6 +8,8 @@ class Team extends Model {
 
 Team.init({
   id: {
+    allowNull: false,
+    autoIncrement: true,
     primaryKey: true,
     type: INTEGER,
   },
