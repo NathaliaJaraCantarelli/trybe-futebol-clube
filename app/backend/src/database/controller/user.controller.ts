@@ -9,12 +9,12 @@ export default class ControllerUser {
     const { email, password } = req.body;
     const result = await this.user.verifyLogin({ email, password });
     if (!result) return res.status(401).json({ message: 'Invalid email or password' });
-    const token = authToken.generateToken({ email, password });
+    const token = authToken.generateToken({ email, password, role: result.role });
     return res.status(200).json({ token });
   };
 
-//   roleToken = async (req: Request, res: Response) => {
-//     const cahves = Object.keys(req);
-//     res.status(100).json({ message: cahves });
-//   };
+  roleToken = async (req: Request, res: Response) => {
+    const user = req.body.data;
+    res.status(200).json(user);
+  };
 }
