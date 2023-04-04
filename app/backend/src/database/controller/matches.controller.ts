@@ -6,8 +6,12 @@ export default class ControllerMatches {
     this.matches = matches;
   }
 
-  getAll = async (_req: Request, res: Response) => {
-    const result = await this.matches.getAll();
+  getAll = async (req: Request, res: Response) => {
+    const { inProgress } = req.query;
+    let result = await this.matches.getAll();
+    if (inProgress) {
+      result = result.filter((match) => match.inProgress.toString() === inProgress);
+    }
     return res.status(200).json(result);
   };
 }
