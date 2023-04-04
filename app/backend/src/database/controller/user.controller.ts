@@ -15,6 +15,6 @@ export default class ControllerUser {
 
   roleToken = async (req: Request, res: Response) => {
     const user = req.body.data;
-    res.status(200).json(user);
+    res.status(200).json({ role: user.role });
   };
 }
