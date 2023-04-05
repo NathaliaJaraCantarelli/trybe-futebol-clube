@@ -25,4 +25,8 @@ export default class ServiceMatches {
     });
     return result;
   }
+
+  async finishMatch(id: number): Promise<void> {
+    await this.matches.update({ inProgress: false }, { where: { id } });
+  }
 }
