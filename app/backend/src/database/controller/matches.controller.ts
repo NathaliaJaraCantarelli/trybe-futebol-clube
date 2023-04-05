@@ -28,8 +28,20 @@ export default class ControllerMatches {
     return res.status(200).json({ message: 'updated' });
   };
 
+  teamsExists = async (homeTeamId: string, awayTeamId: string): Promise<boolean> => {
+    const homeTeam = await this.matches.getById(Number(homeTeamId));
+    const awayTeam = await this.matches.getById(Number(awayTeamId));
+
+    if (!homeTeam || !awayTeam) return true;
+    return false;
+  };
+
   create = async (req: Request, res: Response) => {
     const { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals } = req.body;
+
+    const teams = await this.teamsExists(homeTeamId, awayTeamId);
+    if (teams) return res.status(404).json({ message: 'There is no team with such id!' });
+
     const result = await this.matches.createMatch({
       homeTeamId,
       homeTeamGoals,

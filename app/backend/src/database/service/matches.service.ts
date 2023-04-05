@@ -2,6 +2,7 @@ import { ModelStatic } from 'sequelize';
 import IMatch from '../interfaces/match.interface';
 import modelMatches from '../models/Matches';
 import modelTeams from '../models/Team';
+import ITeam from '../interfaces/team.interface';
 
 export default class ServiceMatches {
   constructor(
@@ -50,6 +51,11 @@ export default class ServiceMatches {
       awayTeamGoals,
       inProgress,
     });
+    return result;
+  }
+
+  async getById(id: number): Promise<ITeam | null> {
+    const result = await this.team.findByPk(id);
     return result;
   }
 }
