@@ -27,4 +27,16 @@ export default class ControllerMatches {
     await this.matches.editMatch(homeTeamGoals, awayTeamGoals, Number(id));
     return res.status(200).json({ message: 'updated' });
   };
+
+  create = async (req: Request, res: Response) => {
+    const { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals } = req.body;
+    const result = await this.matches.createMatch({
+      homeTeamId,
+      homeTeamGoals,
+      awayTeamId,
+      awayTeamGoals,
+      inProgress: true,
+    });
+    return res.status(201).json(result);
+  };
 }
