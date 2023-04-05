@@ -29,4 +29,8 @@ export default class ServiceMatches {
   async finishMatch(id: number): Promise<void> {
     await this.matches.update({ inProgress: false }, { where: { id } });
   }
+
+  async editMatch(homeTeamGoals: number, awayTeamGoals: number, id: number): Promise<void> {
+    await this.matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  }
 }
