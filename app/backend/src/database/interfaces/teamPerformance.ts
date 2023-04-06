@@ -10,6 +10,8 @@ export default interface ITeamPerformance {
   totalLosses: number;
   goalsFavor: number;
   goalsOwn: number;
+  goalsBalance: number;
+  efficiency: number;
   matches?: IMatch[];
   team?: ITeam;
 }

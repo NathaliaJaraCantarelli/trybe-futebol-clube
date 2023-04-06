@@ -11,6 +11,8 @@ export default class LeaderBoard implements ITeamPerformance {
   totalLosses: number;
   goalsFavor: number;
   goalsOwn: number;
+  goalsBalance: number;
+  efficiency: number;
   team: ITeam;
   matches: IMatch[];
   typeTeam: 'homeTeamId';
@@ -27,6 +29,8 @@ export default class LeaderBoard implements ITeamPerformance {
     this.goalsFavor = this.GoalsFavor();
     this.goalsOwn = this.GoalsOwn();
     this.totalGames = this.TotalGames();
+    this.goalsBalance = this.GoalsBalance();
+    this.efficiency = this.Efficiency();
   }
 
   GoalsFavor(): number {
@@ -76,12 +80,19 @@ export default class LeaderBoard implements ITeamPerformance {
   }
 
   TotalGames(): number {
-    const games = this.totalDraws + this.totalLosses + this.totalVictories;
-    return games;
+    return this.totalDraws + this.totalLosses + this.totalVictories;
   }
 
   TotalPoints(): number {
-    const points = this.totalDraws + (this.totalVictories * 3);
-    return points;
+    return this.totalDraws + (this.totalVictories * 3);
+  }
+
+  GoalsBalance(): number {
+    return this.goalsFavor - this.goalsOwn;
+  }
+
+  Efficiency(): number {
+    return Number(((this.totalPoints / (this.totalGames * 3)) * 100)
+      .toFixed(2));
   }
 }

@@ -3,6 +3,7 @@ import Teams from '../models/Team';
 import Matches from '../models/Matches';
 import LeaderBoard from '../models/Learderborad';
 import ITeamPerformance from '../interfaces/teamPerformance';
+import Order from '../middlewares/orderLeaderboard';
 
 export default class LeaderBoardService {
   constructor(
@@ -16,6 +17,11 @@ export default class LeaderBoardService {
   public async getHomeMatchs(): Promise<ITeamPerformance[]> {
     const teams = await this.team.findAll();
     const matches = await this.macthes.findAll();
-    return teams.map((teamIndex) => new LeaderBoard(teamIndex, matches, 'homeTeamId'));
+    const result = teams.map((teamIndex) => new LeaderBoard(teamIndex, matches, 'homeTeamId'));
+    const first = Order(result, 'goalsFavor');
+    const second = Order(first, 'goalsBalance');
+    const thirt = Order(second, 'totalVictories');
+    const fourty = Order(thirt, 'totalPoints');
+    return fourty;
   }
 }
