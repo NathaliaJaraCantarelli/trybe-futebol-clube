@@ -34,7 +34,7 @@ export default class LeaderBoardService {
     const teams = await this.team.findAll();
     const matches = await this.macthes.findAll();
     const perfomance = teams.map((teamIndex) => new LeaderBoard(teamIndex, matches, 'awayTeamId'));
-    const result = orderTeams(perfomance).reverse();
+    const result = orderTeams(perfomance);
     return result;
   }
 }

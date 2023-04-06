@@ -22,12 +22,16 @@ export default class LeaderBoard implements ITeamPerformance {
     this.typeTeam = typeTeam;
     this.name = Team.teamName;
     this.matches = Matches;
-    this.totalVictories = this.TotalVictories();
-    this.totalLosses = this.TotalLosses();
+    this.totalVictories = this.typeTeam === 'homeTeamId'
+      ? this.TotalVictories() : this.TotalLosses();
+    this.totalLosses = this.typeTeam === 'homeTeamId'
+      ? this.TotalLosses() : this.TotalVictories();
     this.totalDraws = this.TotalDraws();
     this.totalPoints = this.TotalPoints();
-    this.goalsFavor = this.GoalsFavor();
-    this.goalsOwn = this.GoalsOwn();
+    this.goalsFavor = this.typeTeam === 'homeTeamId'
+      ? this.GoalsFavor() : this.GoalsOwn();
+    this.goalsOwn = this.typeTeam === 'homeTeamId'
+      ? this.GoalsOwn() : this.GoalsFavor();
     this.totalGames = this.TotalGames();
     this.goalsBalance = this.GoalsBalance();
     this.efficiency = this.Efficiency();
