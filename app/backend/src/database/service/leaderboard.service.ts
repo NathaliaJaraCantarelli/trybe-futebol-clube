@@ -3,15 +3,8 @@ import Teams from '../models/Team';
 import Matches from '../models/Matches';
 import LeaderBoard from '../models/Learderborad';
 import ITeamPerformance from '../interfaces/teamPerformance';
-import Order from '../middlewares/orderLeaderboard';
-
-function orderTeams(result: ITeamPerformance[]): ITeamPerformance[] {
-  const first = Order(result, 'goalsFavor');
-  const second = Order(first, 'goalsBalance');
-  const third = Order(second, 'totalVictories');
-  const fourth = Order(third, 'totalPoints');
-  return fourth;
-}
+import orderTeams from '../middlewares/orderLeaderboard';
+import totalPerformance from '../middlewares/totalPerformance';
 
 export default class LeaderBoardService {
   constructor(
@@ -34,6 +27,16 @@ export default class LeaderBoardService {
     const teams = await this.team.findAll();
     const matches = await this.macthes.findAll();
     const perfomance = teams.map((teamIndex) => new LeaderBoard(teamIndex, matches, 'awayTeamId'));
+    const result = orderTeams(perfomance);
+    return result;
+  }
+
+  public async getAllMatchs(): Promise<ITeamPerformance[]> {
+    const teams = await this.team.findAll();
+    const matches = await this.macthes.findAll();
+    const Home = teams.map((teamIndex) => new LeaderBoard(teamIndex, matches, 'homeTeamId'));
+    const Away = teams.map((teamIndex) => new LeaderBoard(teamIndex, matches, 'awayTeamId'));
+    const perfomance = totalPerformance(Home, Away);
     const result = orderTeams(perfomance);
     return result;
   }
