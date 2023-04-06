@@ -125,7 +125,7 @@ describe('Testa a model de teams', () => {
       })); 
     
     expect(result.status).to.be.equal(404);
-    expect(result.body).to.be.deep.equal({ "message": "There is no team with such id!" });
+    expect(result.body).to.be.deep.equal({ message: 'There is no team with such id!' });
   });
 
   it('Retorna um erro ao inserir um team que não existe', async () => {
@@ -148,6 +148,6 @@ describe('Testa a model de teams', () => {
       })); 
     
     expect(result.status).to.be.equal(422);
-    expect(result.body).to.be.deep.equal({ "message": "It is not possible to create a match with two equal teams" });
+    expect(result.body).to.be.deep.equal({ message: 'It is not possible to create a match with two equal teams' });
   });
 });
