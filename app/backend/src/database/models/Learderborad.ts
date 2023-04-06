@@ -15,9 +15,9 @@ export default class LeaderBoard implements ITeamPerformance {
   efficiency: number;
   team: ITeam;
   matches: IMatch[];
-  typeTeam: 'homeTeamId';
+  typeTeam: 'homeTeamId' | 'awayTeamId';
 
-  constructor(Team: ITeam, Matches: IMatch[], typeTeam: 'homeTeamId') {
+  constructor(Team: ITeam, Matches: IMatch[], typeTeam: 'homeTeamId' | 'awayTeamId') {
     this.team = Team;
     this.typeTeam = typeTeam;
     this.name = Team.teamName;

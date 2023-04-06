@@ -9,5 +9,6 @@ const service = new ServiceLeaderboard(Team, Matches);
 const controller = new ControllerLearderboard(service);
 
 router.get('/home', controller.getHome);
+router.get('/away', controller.getAway);
 
 export default router;
